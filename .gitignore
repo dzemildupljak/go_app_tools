@@ -1,0 +1,40 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Vendor directories (if not using Go Modules)
+vendor/
+
+# Go build cache
+/go-build/
+
+# IDE-specific files
+## JetBrains GoLand
+.idea/
+
+## VS Code
+.vscode/
+
+## Vim
+*.swp
+*.swo
+*.un~
+
+# Logs and databases
+*.log
+*.db
+*.sqlite
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Dependency files
+go.sum
+
+.env

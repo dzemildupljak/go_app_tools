@@ -1,0 +1,19 @@
+FROM golang:1.23-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache git
+
+# Fixed the air package name to air-verse/air
+RUN go install github.com/air-verse/air@latest && \
+    go install github.com/go-delve/delve/cmd/dlv@latest
+
+COPY go.mod ./
+RUN go mod download
+
+COPY . .
+EXPOSE 8080 2345
+
+RUN mkdir -p /app/logs/processed
+
+CMD ["air", "-c", ".air.toml"]

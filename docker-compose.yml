@@ -1,0 +1,36 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: server
+    volumes:
+      - .:/app:delegated
+      - logs_vol:/app/logs
+    ports:
+      - "8080:8080"
+      - "2345:2345"  # Add debug port
+    security_opt:
+      - "seccomp:unconfined"
+    cap_add:
+      - SYS_PTRACE
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=dev
+      - GOLAND_DEBUG=1
+  fluent-bit:
+    image: fluent/fluent-bit:latest
+    container_name: fluent-bit
+    volumes:
+      - logs_vol:/app/logs
+      - ./fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf
+    environment:
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - ENVIRONMENT=dev
+      - APP_ENV=dev
+      - SERVICE_NAME=go_dev_log_app
+
+volumes:
+  logs_vol:
