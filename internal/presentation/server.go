@@ -10,7 +10,7 @@ import (
 	"github.com/dzemildupljak/go_app_tools/internal/application"
 )
 
-func loginHandler(w http.ResponseWriter, r *http.Request) {
+func loginHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Println(w, "Login endpoint")
 }
 
@@ -25,11 +25,6 @@ func getUserHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad request: error in user details", http.StatusBadRequest)
 		return
 	}
-	//utils.LogError(r.Context(),
-	//	fmt.Errorf("error in user details"), "Get user details error")
-
-	// Return a 400 Bad Request with an error message
-	//http.Error(w, "Bad request: error in user details", http.StatusBadRequest)
 
 	// Return a 200 OK response
 	w.WriteHeader(http.StatusOK)
